@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Infnet",
+    "description": "Disciplina",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8989",
+      "description": "Aplicação Cliente"
+    },
+    {
+      "url": "https://api-electrolux.sensedia.com/hml/sfsc/v1",
+      "description": "Homologation"
+    },
+    {
+      "url": "https://api-electrolux.sensedia.com/dev/sfsc/v1",
+      "description": "Development"
+    },
+    {
+      "url": "https://api.electrolux.com.br/sfsc/v1",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/cliente": {
+      "get": {
+        "summary": "List todos os clientes",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cliente/{id}": {
+      "get": {
+        "summary": "id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the user to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cliente/save": {
+      "post": {
+        "summary": "Adiciona novo cliente",
+        "requestBody": {
+          "description": "Adiciona novo cliente",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorArrayResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas"
+        }
+      }
+    },
+    "securitySchemes": {
+      "client_id": {
+        "name": "client_id",
+        "type": "apiKey",
+        "in": "header"
+      }
+    },
+    "requestBodies": {}
+  },
+  "security": [
+    {
+      "client_id": []
+    }
+  ]
+}

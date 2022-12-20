@@ -17,7 +17,17 @@ public class GatewayApplication {
 				.route(p -> p
 						.path("/clientes/**")
 						.filters(f -> f.addRequestHeader("client_id", "123456"))
-						.uri("http://localhost:8989")).build();
+						.uri("http://localhost:8989"))
+
+				.route(p -> p
+						.path("/produtos/**")
+						.filters(f ->f.circuitBreaker(config -> config
+								.setName("mycmd")
+								.setFallbackUri("forward:/fallback"))
+						)
+						.uri("http://localhost:8282")
+				)
+				.build();
 
 	}
 
